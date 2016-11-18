@@ -74,7 +74,11 @@
             ttt.played = [];
         },
         endGame: function () {
-
+            for (let i = 1; i <= 9; i++) {
+                let elem = document.getElementById('cell-' + i);
+                elem.removeEventListener('click', this.play.bind(this), false);
+                elem.style.cursor = '';
+            }
         },
         // make a request
         remoteRequest: function () {
