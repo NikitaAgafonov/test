@@ -43,7 +43,7 @@
     var ttt = {
         // cells played so far
         played: [],
-        nowTurn: 'o',
+        nowTurn: '',
         inGame: true,
         // shorthand
         get: function (id) {
@@ -62,7 +62,9 @@
             this.inGame = true;
             for (let i = 1; i <= 9; i++) {
                 let elem = document.getElementById('cell-'+i);
-                elem.addEventListener('click', this.play.bind(this), false);
+                let handler = this.play.bind(this);
+                elem.myHandler = handler;
+                elem.addEventListener('click', handler, false);
                 elem.style.cursor = 'pointer';
             };
             var tds = document.getElementsByTagName("td"),
@@ -71,12 +73,13 @@
             for (i = 0; i < max; i += 1) {
                 tds[i].innerHTML = "";
             }
-            ttt.played = [];
+            this.played = [];
+            this.nowTurn = 'o';
         },
         endGame: function () {
             for (let i = 1; i <= 9; i++) {
                 let elem = document.getElementById('cell-' + i);
-                elem.removeEventListener('click', this.play.bind(this), false);
+                elem.removeEventListener('click', elem.myHandler, false);
                 elem.style.cursor = '';
             }
         },
