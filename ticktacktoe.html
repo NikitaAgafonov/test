@@ -76,6 +76,7 @@
             this.played = [];
             this.nowTurn = 'o';
         },
+
         endGame: function () {
             for (let i = 1; i <= 9; i++) {
                 let elem = document.getElementById('cell-' + i);
@@ -83,12 +84,14 @@
                 elem.style.cursor = '';
             }
         },
+
         // make a request
         remoteRequest: function () {
             var script = document.createElement("script");
             script.src = "server.php?callback=ttt.serverPlay&played=" + ttt.played.join(',');
             document.body.appendChild(script);
         },
+
         _isWinner(field) {
             if (field[0] !== "" && field[0] === field[1] && field[1] === field[2]) {
                 return true;
@@ -122,6 +125,7 @@
                 return true;
             }
         },
+
         getField: function () {
             const field = [];
             for (let i = 1; i <= 9; i++) {
@@ -129,6 +133,7 @@
             }
             return field;
         },
+
         checkGameState: function () {
             var field = this.getField();
             console.log(field);
@@ -136,11 +141,15 @@
             if (this._isWinner(field)) return true;
         },
 
+        canClick: function (e) {
+            if (!e.target.innerHTML) return true;
+        },
+
         play: function (e) {
-            console.log(this);
-            console.log(this.inGame);
+            //console.log(this);
+            //console.log(this.inGame);
             if (this.inGame){
-                this.turn(e);
+                if (this.canClick(e)) this.turn(e);
                 if (this.checkGameState()) {
                     console.log(this.nowTurn+' win!');
                     this.inGame = false;
