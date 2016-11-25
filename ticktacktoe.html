@@ -13,10 +13,9 @@
 </head>
 <body>
 
-<h1>Tic-tac-toe: </h1>
+<h1><b>Tic-tac-toe:</b></h1>
 
 <button id="new">New game</button>
-<button id="server">Start game</button>
 
 <table>
     <tr>
@@ -92,6 +91,7 @@
             document.body.appendChild(script);
         },
 
+        // check winner
         _isWinner(field) {
             if (field[0] !== "" && field[0] === field[1] && field[1] === field[2]) {
                 return true;
@@ -170,41 +170,41 @@
             e.target.innerHTML = this.nowTurn;
         },
 
-        // callback, server's turn to play
-        serverPlay: function (data) {
-            if (data.error) {
-                alert(data.error);
-                return;
-            }
-            data = parseInt(data, 10);
-            this.played.push(data);
-
-            this.get('cell-' + data).innerHTML = '<span class="server">X<\/span>';
-
-            setTimeout(function () {
-                ttt.clientPlay();
-            }, 300); // as if thinking hard
-
-        },
-
-        // client's turn to play
-        clientPlay: function () {
-            var data = 5;
-
-            if (this.played.length === 9) {
-                alert("Game over");
-                return;
-            }
-
-            // keep coming up with random numbers 1-9
-            // until one not taken cell is found
-            while (this.get('cell-' + data).innerHTML !== "") {
-                data = Math.ceil(Math.random() * 9);
-            }
-            this.get('cell-' + data).innerHTML = 'O';
-            this.played.push(data);
-
-        }
+//        // callback, server's turn to play
+//        serverPlay: function (data) {
+//            if (data.error) {
+//                alert(data.error);
+//                return;
+//            }
+//            data = parseInt(data, 10);
+//            this.played.push(data);
+//
+//            this.get('cell-' + data).innerHTML = '<span class="server">X<\/span>';
+//
+//            setTimeout(function () {
+//                ttt.clientPlay();
+//            }, 300); // as if thinking hard
+//
+//        },
+//
+//        // client's turn to play
+//        clientPlay: function () {
+//            var data = 5;
+//
+//            if (this.played.length === 9) {
+//                alert("Game over");
+//                return;
+//            }
+//
+//            // keep coming up with random numbers 1-9
+//            // until one not taken cell is found
+//            while (this.get('cell-' + data).innerHTML !== "") {
+//                data = Math.ceil(Math.random() * 9);
+//            }
+//            this.get('cell-' + data).innerHTML = 'O';
+//            this.played.push(data);
+//
+//        }
 
     };
 
